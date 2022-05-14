@@ -5,7 +5,6 @@ plugins {
 }
 
 group = 'com.test'
-version = ''
 sourceCompatibility = '1.8'
 
 repositories {
