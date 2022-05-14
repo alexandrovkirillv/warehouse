@@ -1,1 +1,1 @@
-web: java -jar target/warehouse.jar
+web: java -jar build/libs/warehouse.jar
