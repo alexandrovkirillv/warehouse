@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -jar build/libs/warehouse.jar
+web: java -jar build/libs/warehouse.jar
