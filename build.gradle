@@ -15,6 +15,10 @@ jar {
 	enabled = false
 	archiveBaseName = 'warehouse'
 }
+distZip.enabled = false
+distTar.enabled = false
+bootDistTar.enabled = false
+bootDistZip.enabled = false
 
 group = 'com.test'
 
