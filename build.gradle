@@ -4,18 +4,19 @@ plugins {
 	id 'java'
 	id 'application'
 }
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 application {
 	mainClass = 'com.test.warehouse.WarehouseApplication'
 }
 
 jar {
+	enabled = false
 	archiveBaseName = 'warehouse'
 }
 
 group = 'com.test'
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
 
 repositories {
 	mavenCentral()
