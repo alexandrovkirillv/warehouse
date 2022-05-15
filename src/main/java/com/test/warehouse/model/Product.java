@@ -33,17 +33,4 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "warehouse_id", nullable = false)
     private Warehouse warehouse;
-
-
-    public Product(String name, Integer quality, Long purchasePrice, Long purchasePriceWithVAT, Long salePrice,
-                   Long salePriceWithVAT) {
-        this.name = name;
-        this.quality = quality;
-        this.purchasePrice = purchasePrice;
-        this.purchasePriceWithVAT = purchasePriceWithVAT;
-        this.salePrice = salePrice;
-        this.salePriceWithVAT = salePriceWithVAT;
-    }
-
-
 }

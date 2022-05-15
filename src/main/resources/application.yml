@@ -1,0 +1,15 @@
+server:
+  port: ${PORT}
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  sql:
+    init:
+      mode: always
+  datasource:
+      driverClassName: org.postgresql.Driver
+      url: jdbc:postgresql://${PGSQL_HOST}:5432/${PGSQL_DBNAME}
+      username: ${PGSQL_USER}
+      password: ${PGSQL_PASS}
