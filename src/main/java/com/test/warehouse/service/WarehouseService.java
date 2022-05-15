@@ -1,6 +1,7 @@
 package com.test.warehouse.service;
 
 import com.test.warehouse.dto.ReportDTO;
+import com.test.warehouse.exception.GlobalException;
 import com.test.warehouse.model.Product;
 import com.test.warehouse.model.Warehouse;
 import com.test.warehouse.repository.ProductRepo;
@@ -12,6 +13,7 @@ import java.util.List;
 
 /**
  * Service using for warehouse logic, which save data and build reports
+ *
  * @author Kirill Alexandrov
  */
 
@@ -31,8 +33,11 @@ public class WarehouseService {
         warehouseRepo.save(warehouse);
     }
 
-    public void addProduct(Product product, Long warehouseId) {
-        Warehouse warehouse = warehouseRepo.getById(warehouseId);
+    public void addProduct(Product product, Long warehouseId) throws GlobalException {
+
+        Warehouse warehouse = warehouseRepo.findById(warehouseId).orElseThrow(
+                () -> new GlobalException("WarehouseId: invalid parameter"));
+
         product.setWarehouse(warehouse);
         productRepo.save(product);
     }

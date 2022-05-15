@@ -1,8 +1,8 @@
 package com.test.warehouse.controllers;
 
+import com.test.warehouse.dto.ReportDTO;
 import com.test.warehouse.exception.GlobalException;
 import com.test.warehouse.model.Product;
-import com.test.warehouse.dto.ReportDTO;
 import com.test.warehouse.model.Warehouse;
 import com.test.warehouse.service.WarehouseService;
 import org.slf4j.Logger;
@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLException;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -24,16 +24,16 @@ public class WareHouseController {
     }
 
     @PostMapping("/warehouse/add")
-    public HttpStatus addRegion(@RequestBody Warehouse warehouse) {
+    public HttpStatus addWarehouse(@Valid @RequestBody Warehouse warehouse) {
         LOG.info("Adding warehouse: {}", warehouse);
         service.addWarehouse(warehouse);
         return HttpStatus.OK;
     }
 
     @PostMapping("product/{warehouseId}/add")
-    public HttpStatus addProduct(@RequestBody Product product,
-                                 @PathVariable(value = "warehouseId") Long warehouseId) {
-        LOG.info("Adding product: {}", product);
+    public HttpStatus addProduct(@Valid @RequestBody Product product,
+                                 @PathVariable(value = "warehouseId") Long warehouseId) throws GlobalException {
+        LOG.info("Adding product: {}, with warehouseId {}", product, warehouseId);
         service.addProduct(product, warehouseId);
         return HttpStatus.OK;
     }
