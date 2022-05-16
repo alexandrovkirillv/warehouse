@@ -10,6 +10,7 @@ There are 3 possible api, which you can use:
 "id": "1",
 "name": "Main Warehouse"
 }
+
 2. add Product: {2} - is warehouseId
 POST https://warehouse212.herokuapp.com/product/2/add
    Content-Type: application/json
