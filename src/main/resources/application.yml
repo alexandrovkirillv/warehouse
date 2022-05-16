@@ -4,7 +4,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
   sql:
     init:
       mode: always
@@ -13,3 +13,6 @@ spring:
       url: jdbc:postgresql://${PGSQL_HOST}:5432/${PGSQL_DBNAME}
       username: ${PGSQL_USER}
       password: ${PGSQL_PASS}
+  flyway:
+    locations: classpath:db/migration
+

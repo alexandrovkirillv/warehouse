@@ -3,12 +3,19 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id 'application'
+	id "org.flywaydb.flyway" version "8.5.11"
 }
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 application {
 	mainClass = 'com.test.warehouse.WarehouseApplication'
+}
+
+flyway {
+	url = 'jdbc:postgresql://localhost:5432/warehouse'
+	user = 'warehouse'
+	password = 'warehouse'
 }
 
 jar {
@@ -36,6 +43,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok:1.18.24'
 	testCompileOnly 'org.projectlombok:lombok:1.18.24'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+	implementation 'org.flywaydb:flyway-core'
 }
 
 tasks.named('test') {
