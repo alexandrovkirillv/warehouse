@@ -4,9 +4,14 @@ plugins {
 	id 'java'
 	id 'application'
 	id "org.flywaydb.flyway" version "8.5.11"
+	id "com.github.node-gradle.node" version "3.0.1"
 }
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+
+node {
+	version = '14.15.5'
+}
 
 application {
 	mainClass = 'com.test.warehouse.WarehouseApplication'
@@ -37,6 +42,7 @@ dependencies {
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.6.7'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	compileOnly 'org.projectlombok:lombok:1.18.24'

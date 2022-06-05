@@ -33,13 +33,14 @@ public class WarehouseService {
         warehouseRepo.save(warehouse);
     }
 
-    public void addProduct(Product product, Long warehouseId) throws GlobalException {
+    public Warehouse getWarehouse(Long id) throws GlobalException {
+        return warehouseRepo
+                .findById(id).orElseThrow(() -> new GlobalException("WarehouseId: invalid parameter"));
+    }
 
-        Warehouse warehouse = warehouseRepo.findById(warehouseId).orElseThrow(
-                () -> new GlobalException("WarehouseId: invalid parameter"));
-
-        product.setWarehouse(warehouse);
-        productRepo.save(product);
+    public void deleteWarehouse(Long id) throws GlobalException {
+        Warehouse warehouse = getWarehouse(id);
+        warehouseRepo.delete(warehouse);
     }
 
     public List<ReportDTO> getReport() {

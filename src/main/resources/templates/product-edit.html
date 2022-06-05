@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React on Spring</title>
+    <link rel="stylesheet" th:href="@{/style/bootstrap.min.css}">
+</head>
+<body>
+<header th:insert="block/header :: header"></header>
+<div class="container mt-5 mb-5">
+    <h2>Product form</h2>
+    <div th:each="el : ${productForm}">
+        <form th:action="@{/product-edit}" th:object="${productForm}" method="post">
+            <input id=id th:value="${productForm.id}" name="id" hidden class="form-control">
+            <input id=name th:value="${productForm.name}" name="name" placeholder="Product name" class="form-control">
+            <input th:value="${productForm.quantity}" name="quantity" placeholder="Product quantity" class="form-control">
+            <input  th:value="${productForm.warehouseId}" name="warehouseId" placeholder="Warehouse id" class="form-control">
+            <input  th:value="${productForm.description}" name="description" placeholder="Product description" class="form-control">
+            <input  th:value="${productForm.price}" name="price" placeholder="Product price" class="form-control">
+            <button type="submit" class="btn btn-success">Edit product</button>
+
+        </form>
+    </div>
+</div>
+</body>
+</html>

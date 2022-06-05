@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
@@ -22,10 +21,6 @@ public class Warehouse {
     private Long id;
     @NotNull
     private String name;
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    @OneToMany(mappedBy = "warehouse")
-    private Set<Product> products;
 
     public Warehouse(String name) {
         this.name = name;

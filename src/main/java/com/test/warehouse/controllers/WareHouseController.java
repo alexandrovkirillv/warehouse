@@ -23,18 +23,21 @@ public class WareHouseController {
         this.service = service;
     }
 
-    @PostMapping("/warehouse/add")
+    @PostMapping("/warehouse")
     public HttpStatus addWarehouse(@Valid @RequestBody Warehouse warehouse) {
         LOG.info("Adding warehouse: {}", warehouse);
         service.addWarehouse(warehouse);
         return HttpStatus.OK;
     }
 
-    @PostMapping("product/{warehouseId}/add")
-    public HttpStatus addProduct(@Valid @RequestBody Product product,
-                                 @PathVariable(value = "warehouseId") Long warehouseId) throws GlobalException {
-        LOG.info("Adding product: {}, with warehouseId {}", product, warehouseId);
-        service.addProduct(product, warehouseId);
+    @GetMapping("/warehouse/{id}")
+    public Warehouse getWarehouse(@PathVariable Long id) throws GlobalException {
+        return service.getWarehouse(id);
+    }
+
+    @DeleteMapping("/warehouse/{id}")
+    public HttpStatus deleteWarehouse(@PathVariable Long id) throws GlobalException {
+        service.deleteWarehouse(id);
         return HttpStatus.OK;
     }
 

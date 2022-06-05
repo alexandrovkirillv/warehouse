@@ -1,5 +1,7 @@
 package com.test.warehouse.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +13,8 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @Table(name = "product")
+@Builder
+@AllArgsConstructor
 public class Product {
 
     @Id
@@ -19,18 +23,16 @@ public class Product {
     @NotEmpty
     private String name;
     @NotNull
-    private Integer quality;
-    @NotNull
+    private Long quantity;
     private Long purchasePrice;
     @Column(name = "purchase_price_with_vat")
-    @NotNull
     private Long purchasePriceWithVAT;
     @NotNull
     private Long salePrice;
     @Column(name = "sale_price_with_vat")
-    @NotNull
     private Long salePriceWithVAT;
     @ManyToOne
-    @JoinColumn(name = "warehouse_id", nullable = false)
     private Warehouse warehouse;
+    @NotNull
+    private String description;
 }

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React on Spring</title>
+    <link rel="stylesheet" th:href="@{/style/bootstrap.min.css}">
+</head>
+<body>
+<header th:insert="block/header :: header"></header>
+<div class="container mt-5">
+    <div id="tables">
+        <button class='btn btn-success' onClick="addProduct()">Add product</button>
+        <table id="table" class="table">
+            <thead class="thead-dark">
+            <tr class="thead-light">
+                <th scope="col">Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Quant All</th>
+                <th scope="col">Unit</th>
+                <th scope="col">Warehouse</th>
+                <th scope="col">Description</th>
+                <th scope="col">Price</th>
+                <th scope="col">Delete</th>
+                <th scope="col">Edit</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+    <button class="btn btn-warning" onclick="getProduct()">get products</button>
+    <label>
+        <input type="text" id="productName" placeholder="Product name" class="form-control">
+    </label>
+</div>
+
+<div id="root">
+    <script>
+        function getProduct() {
+            let tableElement = document.getElementById('table').getElementsByTagName("tbody");
+            console.log(tableElement, tableElement.length)
+
+            for (let i = tableElement.length - 1; i >= 0; i--) {
+                tableElement[i].remove();
+            }
+
+            let productName = document.getElementById("productName").value;
+            fetch('http://localhost:8080/product/' + productName)
+                .then((response) => {
+                    return response.json();
+                })
+                .then(function (data) {
+                    data.products.forEach(product =>
+                        publishToTable(product)
+                    )
+                });
+        }
+    </script>
+</div>
+</body>
+</html>
+<script>
+    function publishToTable(product) {
+        if (product) {
+            console.log("new prod", product)
+            const tableElement = document.getElementById('table');
+            const trElement = document.createElement('tr');
+            const tbodyElement = document.createElement('tbody');
+            const nameEle = document.createElement('td');
+            const quantityEle = document.createElement('td');
+            const quantityAllEle = document.createElement('td');
+            const unitEle = document.createElement('td');
+            const warehouseEle = document.createElement('td');
+            const descriptionEle = document.createElement('td');
+            const priceEle = document.createElement('td');
+            const deleteElem = document.createElement('td');
+            const editElem = document.createElement('td');
+            nameEle.innerHTML = product.name;
+            quantityEle.innerHTML = product.quantity;
+            quantityAllEle.innerHTML = product.quantityAll;
+            unitEle.innerHTML = "ALE";
+            warehouseEle.innerHTML = product.warehouseName;
+            descriptionEle.innerHTML = product.description;
+            priceEle.innerHTML = (product.price / 100) + '₺';
+            deleteElem.innerHTML = "<button class='btn btn-warning' type='button' onClick='deleteProduct(" + '"' + product.id + '"' + ")' >Delete</button>";
+            editElem.innerHTML = "<button class='btn btn-warning' type='button' onClick='editProduct(" + '"' + product.id + '"' + ")' >Edit</button>";
+            trElement.appendChild(nameEle);
+            trElement.appendChild(quantityEle);
+            trElement.appendChild(quantityAllEle);
+            trElement.appendChild(unitEle);
+            trElement.appendChild(warehouseEle);
+            trElement.appendChild(descriptionEle);
+            trElement.appendChild(priceEle);
+            trElement.appendChild(deleteElem);
+            trElement.appendChild(editElem);
+            tbodyElement.appendChild(trElement);
+            tableElement.appendChild(tbodyElement);
+        }
+    }
+
+    function deleteProduct(productId) {
+        fetch('http://localhost:8080/product/' + productId, {method: 'DELETE'})
+            .then(getProduct);
+        console.log("DETELED")
+    }
+
+    function editProduct(productId) {
+        location.replace("http://localhost:8080/product-edit/" + productId)
+    }
+
+    function addProduct() {
+        location.replace("http://localhost:8080/product-add/")
+    }
+</script>
